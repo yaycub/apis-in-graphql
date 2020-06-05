@@ -22,7 +22,7 @@ const {
   getPokemonById,
   getPokemonByType } = require('./lib/routes/pokemon');
 
-const { getAllNintendoChar } = require('./lib/routes/nintendo');
+const { getAllNintendoChar, getNintendoByChar } = require('./lib/routes/nintendo');
 
 const app = express();
 
@@ -34,7 +34,8 @@ const root = {
   allPokemon: getAllPokemon,
   pokemonById: getPokemonById,
   pokemonByType: getPokemonByType,
-  allNintendoChar: getAllNintendoChar
+  allNintendoChar: getAllNintendoChar,
+  nintendoByChar: getNintendoByChar
 };
 
 app.use('/graphql', express_graphql({
@@ -47,3 +48,5 @@ app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`Started on ${PORT}`);
 });
+
+module.exports = app;

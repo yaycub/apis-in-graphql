@@ -1,6 +1,7 @@
 const express = require('express');
 const express_graphql = require('express-graphql');
 const { buildSchema } = require('graphql');
+const expressPlayground = require('graphql-playground-middleware-express').default;
 const PORT = process.env.PORT || 8888;
 
 //Schemas
@@ -27,7 +28,8 @@ const {
   getNintendoByChar,
   getNintendoCharById,
   getAllNintendoGames,
-  getNintendoGameByName } = require('./lib/routes/nintendo');
+  getNintendoGameByName,
+  getNintendoGameById } = require('./lib/routes/nintendo');
 
 const app = express();
 
@@ -43,7 +45,8 @@ const root = {
   nintendoByChar: getNintendoByChar,
   nintendoById: getNintendoCharById,
   allNintendoGames: getAllNintendoGames,
-  nintendoByGame: getNintendoGameByName
+  nintendoByGame: getNintendoGameByName,
+  nintendoGameById: getNintendoGameById
 };
 
 app.use('/graphql', express_graphql({
@@ -51,6 +54,8 @@ app.use('/graphql', express_graphql({
   rootValue: root,
   graphiql: true
 }));
+
+app.get('/playground', expressPlayground({ endpoint: '/graphql' }));
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console

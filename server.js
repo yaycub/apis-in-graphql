@@ -22,7 +22,10 @@ const {
   getPokemonById,
   getPokemonByType } = require('./lib/routes/pokemon');
 
-const { getAllNintendoChar, getNintendoByChar } = require('./lib/routes/nintendo');
+const { 
+  getAllNintendoChar, 
+  getNintendoByChar,
+  getNintendoCharById } = require('./lib/routes/nintendo');
 
 const app = express();
 
@@ -35,7 +38,8 @@ const root = {
   pokemonById: getPokemonById,
   pokemonByType: getPokemonByType,
   allNintendoChar: getAllNintendoChar,
-  nintendoByChar: getNintendoByChar
+  nintendoByChar: getNintendoByChar,
+  nintendoById: getNintendoCharById
 };
 
 app.use('/graphql', express_graphql({

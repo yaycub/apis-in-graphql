@@ -1,12 +1,16 @@
 const express = require('express');
 const express_graphql = require('express-graphql');
+const { buildSchema } = require('graphql');
 const PORT = process.env.PORT || 8888;
 
 //Schemas
-const schema = require('./lib/models/Schema');
+const futuramaSchema = require('./lib/models/Futurama');
+const pokemonSchema = require('./lib/models/Pokemon');
+const queries = require('./lib/models/Query');
 
 //Routes
-const { getAllFuturamaQuotes, getQuoteByChar, getQuoteByCharWithCount } = require('./lib/routes/futurama');
+const { getAllFuturamaQuotes, getQuoteByChar, getQuoteByCharWithCount, getAllFuturamaCharacters } = require('./lib/routes/futurama');
+const { getAllPokemon, getPokemonById } = require('./lib/routes/pokemon');
 
 
 const app = express();
@@ -14,11 +18,14 @@ const app = express();
 const root = {
   allFuturamaQuotes: getAllFuturamaQuotes,
   futuramaQuoteByChar: getQuoteByChar,
-  futuramaQuoteByCharByCount: getQuoteByCharWithCount
+  futuramaQuoteByCharByCount: getQuoteByCharWithCount,
+  allFuturamaCharacters: getAllFuturamaCharacters,
+  allPokemon: getAllPokemon,
+  pokemonById: getPokemonById
 };
 
 app.use('/graphql', express_graphql({
-  schema: schema,
+  schema: buildSchema(queries + futuramaSchema + pokemonSchema),
   rootValue: root,
   graphiql: true
 }));

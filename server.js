@@ -10,7 +10,7 @@ const queries = require('./lib/models/Query');
 
 //Routes
 const { getAllFuturamaQuotes, getQuoteByChar, getQuoteByCharWithCount, getAllFuturamaCharacters } = require('./lib/routes/futurama');
-const { getAllPokemon, getPokemonById } = require('./lib/routes/pokemon');
+const { getAllPokemon, getPokemonById, getPokemonByType } = require('./lib/routes/pokemon');
 
 
 const app = express();
@@ -21,7 +21,8 @@ const root = {
   futuramaQuoteByCharByCount: getQuoteByCharWithCount,
   allFuturamaCharacters: getAllFuturamaCharacters,
   allPokemon: getAllPokemon,
-  pokemonById: getPokemonById
+  pokemonById: getPokemonById,
+  pokemonByType: getPokemonByType
 };
 
 app.use('/graphql', express_graphql({

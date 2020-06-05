@@ -6,12 +6,23 @@ const PORT = process.env.PORT || 8888;
 //Schemas
 const futuramaSchema = require('./lib/models/Futurama');
 const pokemonSchema = require('./lib/models/Pokemon');
+const nintendoSchema = require('./lib/models/Nintendo');
 const queries = require('./lib/models/Query');
 
-//Routes
-const { getAllFuturamaQuotes, getQuoteByChar, getQuoteByCharWithCount, getAllFuturamaCharacters } = require('./lib/routes/futurama');
-const { getAllPokemon, getPokemonById, getPokemonByType } = require('./lib/routes/pokemon');
 
+//Routes
+const { 
+  getAllFuturamaQuotes, 
+  getQuoteByChar, 
+  getQuoteByCharWithCount, 
+  getAllFuturamaCharacters } = require('./lib/routes/futurama');
+
+const { 
+  getAllPokemon, 
+  getPokemonById,
+  getPokemonByType } = require('./lib/routes/pokemon');
+
+const { getAllNintendoChar } = require('./lib/routes/nintendo');
 
 const app = express();
 
@@ -22,11 +33,12 @@ const root = {
   allFuturamaCharacters: getAllFuturamaCharacters,
   allPokemon: getAllPokemon,
   pokemonById: getPokemonById,
-  pokemonByType: getPokemonByType
+  pokemonByType: getPokemonByType,
+  allNintendoChar: getAllNintendoChar
 };
 
 app.use('/graphql', express_graphql({
-  schema: buildSchema(queries + futuramaSchema + pokemonSchema),
+  schema: buildSchema(queries + futuramaSchema + pokemonSchema + nintendoSchema),
   rootValue: root,
   graphiql: true
 }));

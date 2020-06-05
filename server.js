@@ -6,14 +6,15 @@ const PORT = process.env.PORT || 8888;
 const schema = require('./lib/models/Schema');
 
 //Routes
-const { getAllFuturamaQuotes, getQuoteByChar } = require('./lib/routes/futurama');
+const { getAllFuturamaQuotes, getQuoteByChar, getQuoteByCharWithCount } = require('./lib/routes/futurama');
 
 
 const app = express();
 
 const root = {
   allFuturamaQuotes: getAllFuturamaQuotes,
-  futuramaQuoteByChar: getQuoteByChar
+  futuramaQuoteByChar: getQuoteByChar,
+  futuramaQuoteByCharByCount: getQuoteByCharWithCount
 };
 
 app.use('/graphql', express_graphql({
